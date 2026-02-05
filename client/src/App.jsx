@@ -1,0 +1,21 @@
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import Tutors from './pages/Tutors';
+import Students from './pages/Students';
+import Sessions from './pages/Sessions';
+import Subjects from './pages/Subjects';
+
+export default function App() {
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/tutors" element={<Tutors />} />
+        <Route path="/students" element={<Students />} />
+        <Route path="/sessions" element={<Sessions />} />
+        <Route path="/subjects" element={<Subjects />} />
+      </Routes>
+    </Layout>
+  );
+}
