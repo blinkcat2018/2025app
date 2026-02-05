@@ -6,6 +6,7 @@ const tutorsRouter = require('./routes/tutors');
 const studentsRouter = require('./routes/students');
 const sessionsRouter = require('./routes/sessions');
 const subjectsRouter = require('./routes/subjects');
+const clientsRouter = require('./routes/clients');
 const dashboardRouter = require('./routes/dashboard');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use('/api/tutors', tutorsRouter);
 app.use('/api/students', studentsRouter);
 app.use('/api/sessions', sessionsRouter);
 app.use('/api/subjects', subjectsRouter);
+app.use('/api/clients', clientsRouter);
 app.use('/api/dashboard', dashboardRouter);
 
 if (process.env.NODE_ENV === 'production') {

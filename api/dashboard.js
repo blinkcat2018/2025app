@@ -7,6 +7,7 @@ module.exports = function handler(req, res) {
 
   const db = getDb();
 
+  const totalClients = db.prepare('SELECT COUNT(*) as count FROM clients WHERE status = ?').get('active').count;
   const totalTutors = db.prepare('SELECT COUNT(*) as count FROM tutors WHERE status = ?').get('active').count;
   const totalStudents = db.prepare('SELECT COUNT(*) as count FROM students WHERE status = ?').get('active').count;
   const totalSubjects = db.prepare('SELECT COUNT(*) as count FROM subjects').get().count;
@@ -50,6 +51,7 @@ module.exports = function handler(req, res) {
 
   res.json({
     stats: {
+      totalClients,
       totalTutors,
       totalStudents,
       totalSubjects,

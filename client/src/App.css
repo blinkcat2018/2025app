@@ -446,6 +446,223 @@ body {
   cursor: pointer;
 }
 
+/* Calendar */
+.calendar-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.calendar-month-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  min-width: 200px;
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.calendar-header-cell {
+  padding: 10px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid var(--color-border);
+  background: #f9fafb;
+}
+
+.calendar-cell {
+  min-height: 80px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.calendar-cell:nth-child(7n) {
+  border-right: none;
+}
+
+.calendar-cell:hover {
+  background: #f0f4ff;
+}
+
+.calendar-cell-outside {
+  background: #f9fafb;
+  color: var(--color-muted);
+  cursor: default;
+}
+
+.calendar-cell-outside:hover {
+  background: #f9fafb;
+}
+
+.calendar-cell-today {
+  background: #eef2ff;
+}
+
+.calendar-cell-today .calendar-day-number {
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-cell-selected {
+  background: #dbeafe;
+}
+
+.calendar-day-number {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.calendar-dots {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.calendar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.calendar-dot-more {
+  font-size: 0.65rem;
+  color: var(--color-muted);
+  line-height: 8px;
+}
+
+.day-sessions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.day-session-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+}
+
+.day-session-time {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  white-space: nowrap;
+  min-width: 100px;
+}
+
+.day-session-info {
+  flex: 1;
+  font-size: 0.875rem;
+}
+
+.day-session-info strong {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.day-session-info div {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+}
+
+/* Client Detail */
+.client-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.detail-row {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.detail-muted {
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+}
+
+.detail-card {
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+/* Form Section (for contacts in client form) */
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-section-header label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.contact-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: #f9fafb;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar {

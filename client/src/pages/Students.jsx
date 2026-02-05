@@ -4,18 +4,21 @@ import DataTable from '../components/DataTable';
 import Modal from '../components/Modal';
 
 const emptyForm = {
-  first_name: '', last_name: '', email: '', phone: '', grade_level: '', status: 'active', notes: '',
+  first_name: '', last_name: '', email: '', phone: '', grade_level: '', client_id: '', status: 'active', notes: '',
 };
 
 export default function Students() {
   const [students, setStudents] = useState([]);
+  const [clients, setClients] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [error, setError] = useState('');
 
   const load = () => {
-    api.students.list().then(setStudents).catch(console.error);
+    Promise.all([api.students.list(), api.clients.list()])
+      .then(([s, c]) => { setStudents(s); setClients(c); })
+      .catch(console.error);
   };
 
   useEffect(load, []);
@@ -34,6 +37,7 @@ export default function Students() {
       email: student.email,
       phone: student.phone || '',
       grade_level: student.grade_level || '',
+      client_id: student.client_id || '',
       status: student.status,
       notes: student.notes || '',
     });
@@ -52,10 +56,14 @@ export default function Students() {
     e.preventDefault();
     setError('');
     try {
+      const payload = {
+        ...form,
+        client_id: form.client_id ? Number(form.client_id) : null,
+      };
       if (editingId) {
-        await api.students.update(editingId, form);
+        await api.students.update(editingId, payload);
       } else {
-        await api.students.create(form);
+        await api.students.create(payload);
       }
       setShowModal(false);
       load();
@@ -70,6 +78,7 @@ export default function Students() {
     { key: 'email', label: 'Email' },
     { key: 'phone', label: 'Phone' },
     { key: 'grade_level', label: 'Grade Level' },
+    { key: 'client_name', label: 'Client (Parent)', render: (v) => v || '-' },
     { key: 'status', label: 'Status', render: (v) => <span className={`badge badge-${v}`}>{v}</span> },
   ];
 
@@ -112,12 +121,21 @@ export default function Students() {
                 <input value={form.grade_level} onChange={(e) => setForm({ ...form, grade_level: e.target.value })} />
               </div>
               <div className="form-group">
-                <label>Status</label>
-                <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
-                  <option value="active">Active</option>
-                  <option value="inactive">Inactive</option>
+                <label>Client (Parent)</label>
+                <select value={form.client_id} onChange={(e) => setForm({ ...form, client_id: e.target.value })}>
+                  <option value="">No client</option>
+                  {clients.filter((c) => c.status === 'active').map((c) => (
+                    <option key={c.id} value={c.id}>{c.first_name} {c.last_name}</option>
+                  ))}
                 </select>
               </div>
+            </div>
+            <div className="form-group">
+              <label>Status</label>
+              <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Notes</label>

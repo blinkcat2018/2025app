@@ -45,4 +45,11 @@ export const api = {
     update: (id, data) => request(`/subjects/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
     delete: (id) => request(`/subjects/${id}`, { method: 'DELETE' }),
   },
+  clients: {
+    list: () => request('/clients'),
+    get: (id) => request(`/clients/${id}`),
+    create: (data) => request('/clients', { method: 'POST', body: JSON.stringify(data) }),
+    update: (id, data) => request(`/clients/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+    delete: (id) => request(`/clients/${id}`, { method: 'DELETE' }),
+  },
 };

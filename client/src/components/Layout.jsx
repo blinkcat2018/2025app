@@ -2,9 +2,11 @@ import { NavLink } from 'react-router-dom';
 
 const navItems = [
   { path: '/', label: 'Dashboard' },
+  { path: '/clients', label: 'Clients' },
   { path: '/tutors', label: 'Tutors' },
   { path: '/students', label: 'Students' },
   { path: '/sessions', label: 'Sessions' },
+  { path: '/calendar', label: 'Calendar' },
   { path: '/subjects', label: 'Subjects' },
 ];
 

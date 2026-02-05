@@ -13,6 +13,30 @@ db.pragma('journal_mode = WAL');
 db.pragma('foreign_keys = ON');
 
 db.exec(`
+  CREATE TABLE IF NOT EXISTS clients (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    phone TEXT,
+    address TEXT,
+    status TEXT DEFAULT 'active' CHECK(status IN ('active', 'inactive')),
+    notes TEXT,
+    created_at TEXT DEFAULT (datetime('now'))
+  );
+
+  CREATE TABLE IF NOT EXISTS client_contacts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    client_id INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    relationship TEXT,
+    email TEXT,
+    phone TEXT,
+    notes TEXT,
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
+  );
+
   CREATE TABLE IF NOT EXISTS subjects (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
@@ -47,9 +71,11 @@ db.exec(`
     email TEXT NOT NULL UNIQUE,
     phone TEXT,
     grade_level TEXT,
+    client_id INTEGER,
     status TEXT DEFAULT 'active' CHECK(status IN ('active', 'inactive')),
     notes TEXT,
-    created_at TEXT DEFAULT (datetime('now'))
+    created_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE SET NULL
   );
 
   CREATE TABLE IF NOT EXISTS sessions (

@@ -20,6 +20,10 @@ export default function Dashboard() {
 
       <div className="stats-grid">
         <div className="stat-card">
+          <div className="stat-value">{stats.totalClients}</div>
+          <div className="stat-label">Active Clients</div>
+        </div>
+        <div className="stat-card">
           <div className="stat-value">{stats.totalTutors}</div>
           <div className="stat-label">Active Tutors</div>
         </div>
